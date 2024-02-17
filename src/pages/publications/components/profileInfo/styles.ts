@@ -33,6 +33,7 @@ export const InfoWrapper = styled.div`
 export const HeaderInfo = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 
   margin-bottom: 8px;
