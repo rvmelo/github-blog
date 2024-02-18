@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-export const PublicationsContainer = styled.div``
+export const PublicationsContainer = styled.div`
+  padding-bottom: 4rem;
+`
 
 export const PublicationInfoContainer = styled.div`
   display: flex;
@@ -23,4 +25,12 @@ export const PublicationInfoContainer = styled.div`
     font-size: 0.875rem;
     color: ${({ theme }) => theme['base-span']};
   }
+`
+
+export const PublicationItemsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+
+  margin-top: 3rem;
 `
