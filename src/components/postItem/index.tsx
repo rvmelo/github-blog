@@ -1,9 +1,13 @@
 import React from 'react'
 import { PostHeader, PostItemContainer } from './styles'
 
-export const PostItem: React.FC = () => {
+interface PostItemProps {
+  onClick: () => void
+}
+
+export const PostItem: React.FC<PostItemProps> = ({ onClick }) => {
   return (
-    <PostItemContainer>
+    <PostItemContainer onClick={onClick}>
       <PostHeader>
         <span className="postTitle">
           JavaScript data types and data structures

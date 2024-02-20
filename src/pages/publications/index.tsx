@@ -7,8 +7,11 @@ import {
 } from './styles'
 import { Input } from '../../components/input'
 import { PostItem } from '../../components/postItem'
+import { useNavigate } from 'react-router-dom'
 
 export const Publications: React.FC = () => {
+  const navigate = useNavigate()
+
   return (
     <PublicationsContainer>
       <ProfileInfo />
@@ -18,12 +21,12 @@ export const Publications: React.FC = () => {
       </PublicationInfoContainer>
       <Input />
       <PublicationItemsContainer>
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
+        <PostItem onClick={() => navigate('/post')} />
+        <PostItem onClick={() => navigate('/post')} />
+        <PostItem onClick={() => navigate('/post')} />
+        <PostItem onClick={() => navigate('/post')} />
+        <PostItem onClick={() => navigate('/post')} />
+        <PostItem onClick={() => navigate('/post')} />
       </PublicationItemsContainer>
     </PublicationsContainer>
   )

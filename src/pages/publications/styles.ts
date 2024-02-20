@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const PublicationsContainer = styled.div`
   padding-bottom: 4rem;
+  cursor: pointer;
 `
 
 export const PublicationInfoContainer = styled.div`
