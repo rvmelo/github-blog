@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react'
 import {
   AdditionalInfoWrapper,
@@ -11,27 +12,30 @@ import { faUserGroup } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { CustomLink } from '../../../../components/customLink'
 import { useTheme } from 'styled-components'
+import { GitHubUserData } from '../..'
 
-export const ProfileInfo: React.FC = () => {
+interface ProfileInfoProps {
+  githubUser: GitHubUserData
+}
+
+export const ProfileInfo: React.FC<ProfileInfoProps> = ({ githubUser }) => {
   const theme = useTheme()
+
+  const { name, login, bio, avatar_url, followers, html_url } = githubUser || {}
 
   return (
     <ProfileInfoContainer>
-      <img src="https://github.com/rvmelo.png" alt="" />
+      <img src={avatar_url} alt="rvmelo" />
       <InfoWrapper>
         <HeaderInfo>
-          <span>Roberto Vasconcelos</span>
-          <CustomLink label="github" link="https://github.com/rvmelo" />
+          <span>{name}</span>
+          <CustomLink label="github" link={html_url} />
         </HeaderInfo>
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p>{bio}</p>
         <AdditionalInfoWrapper>
           <InfoItem>
             <FontAwesomeIcon icon={faGithub} color={theme['base-label']} />
-            <span>rvtheone</span>
+            <span>{login}</span>
           </InfoItem>
           <InfoItem>
             <FontAwesomeIcon
@@ -39,7 +43,9 @@ export const ProfileInfo: React.FC = () => {
               color={theme['base-label']}
               size="sm"
             />
-            <span>3 seguidores</span>
+            <span>
+              {followers} {followers === 1 ? 'seguidor' : 'seguidores'}
+            </span>
           </InfoItem>
         </AdditionalInfoWrapper>
       </InfoWrapper>

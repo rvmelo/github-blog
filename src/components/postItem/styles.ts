@@ -13,6 +13,7 @@ export const PostItemContainer = styled.div`
 
   > p {
     color: ${({ theme }) => theme['base-text']};
+    line-height: 160%;
   }
 `
 

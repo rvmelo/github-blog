@@ -3,22 +3,18 @@ import { PostHeader, PostItemContainer } from './styles'
 
 interface PostItemProps {
   onClick: () => void
+  title: string
+  body: string
 }
 
-export const PostItem: React.FC<PostItemProps> = ({ onClick }) => {
+export const PostItem: React.FC<PostItemProps> = ({ onClick, title, body }) => {
   return (
     <PostItemContainer onClick={onClick}>
       <PostHeader>
-        <span className="postTitle">
-          JavaScript data types and data structures
-        </span>
+        <span className="postTitle">{title}</span>
         <span className="postTime">Há 1 dia</span>
       </PostHeader>
-      <p>
-        Programming languages all have built-in data structures, but these often
-        differ from one language to another. This article attempts to list the
-        built-in data structures available in
-      </p>
+      <p>{body.length > 220 ? body.substring(0, 220) + '...' : body}</p>
     </PostItemContainer>
   )
 }
