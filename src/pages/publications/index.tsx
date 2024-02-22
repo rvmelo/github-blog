@@ -25,6 +25,7 @@ export interface PostsAxiosResponse {
     id: number
     body: string
     title: string
+    created_at: Date
   }[]
 }
 export type GitHubPostsData = PostsAxiosResponse['items']
@@ -79,6 +80,7 @@ export const Publications: React.FC = () => {
             key={post.id}
             title={post.title}
             body={post.body}
+            createdAt={post.created_at}
             onClick={() => navigate('/post')}
           />
         ))}
