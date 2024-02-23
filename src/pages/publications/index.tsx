@@ -7,7 +7,7 @@ import {
 } from './styles'
 import { Input } from '../../components/input'
 import { PostItem } from '../../components/postItem'
-import { useNavigate } from 'react-router-dom'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 import { api } from '../../services/api'
 
 export interface GitHubUserData {
@@ -23,6 +23,7 @@ export interface PostsAxiosResponse {
   total_count: number
   items: {
     id: number
+    number: number
     body: string
     title: string
     created_at: Date
@@ -81,7 +82,14 @@ export const Publications: React.FC = () => {
             title={post.title}
             body={post.body}
             createdAt={post.created_at}
-            onClick={() => navigate('/post')}
+            onClick={() =>
+              navigate({
+                pathname: 'post',
+                search: createSearchParams({
+                  number: `${post.number}`,
+                }).toString(),
+              })
+            }
           />
         ))}
       </PublicationItemsContainer>

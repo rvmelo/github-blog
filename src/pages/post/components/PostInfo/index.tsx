@@ -16,8 +16,19 @@ import {
   PostInfoContainer,
 } from './styles'
 import { useNavigate } from 'react-router-dom'
+import { formatTimeUntilNow } from '../../../../utils/formatTime'
 
-export const PostInfo: React.FC = () => {
+interface PostInfoProps {
+  comments: number
+  createdAt: Date
+  login: string
+}
+
+export const PostInfo: React.FC<PostInfoProps> = ({
+  comments,
+  createdAt,
+  login,
+}) => {
   const theme = useTheme()
 
   const navigate = useNavigate()
@@ -35,15 +46,17 @@ export const PostInfo: React.FC = () => {
       <AdditionalInfoWrapper>
         <InfoItem>
           <FontAwesomeIcon icon={faGithub} color={theme['base-label']} />
-          <span>rvtheone</span>
+          <span>{login}</span>
         </InfoItem>
         <InfoItem>
           <FontAwesomeIcon icon={faCalendar} color={theme['base-label']} />
-          <span>Há 1 dia</span>
+          <span>{formatTimeUntilNow(createdAt)}</span>
         </InfoItem>
         <InfoItem>
           <FontAwesomeIcon icon={faComment} color={theme['base-label']} />
-          <span>Há 1 dia</span>
+          <span>
+            {comments} {comments === 1 ? 'comentário' : 'comentários'}
+          </span>
         </InfoItem>
       </AdditionalInfoWrapper>
     </PostInfoContainer>
