@@ -4,6 +4,7 @@ import { PostContainer, PostContentWrapper } from './styles'
 import { PostInfo } from './components/PostInfo'
 import { useSearchParams } from 'react-router-dom'
 import { api } from '../../services/api'
+import Markdown from 'react-markdown'
 
 interface PostAxiosResponse {
   user: {
@@ -46,7 +47,9 @@ export const Post: React.FC = () => {
     <PostContainer>
       <PostInfo comments={comments} createdAt={created_at} login={user.login} />
       <PostContentWrapper>
-        <p>{body}</p>
+        <p>
+          <Markdown>{body}</Markdown>
+        </p>
       </PostContentWrapper>
     </PostContainer>
   )
