@@ -22,16 +22,25 @@ interface PostInfoProps {
   comments: number
   createdAt: Date
   login: string
+  repositoryUrl: string
+  number: string
 }
 
 export const PostInfo: React.FC<PostInfoProps> = ({
-  comments,
-  createdAt,
   login,
+  comments,
+  repositoryUrl,
+  number,
+  createdAt,
 }) => {
   const theme = useTheme()
 
   const navigate = useNavigate()
+
+  const repositoryName = repositoryUrl.substring(
+    repositoryUrl.lastIndexOf('/'),
+    repositoryUrl.length,
+  )
 
   return (
     <PostInfoContainer>
@@ -40,7 +49,10 @@ export const PostInfo: React.FC<PostInfoProps> = ({
           <FontAwesomeIcon icon={faChevronLeft} color={theme.blue} />
           <span>voltar</span>
         </GoBackWrapper>
-        <CustomLink label="ver no github" link="https://github.com/rvmelo" />
+        <CustomLink
+          label="ver no github"
+          link={`https://github.com/rvmelo/${repositoryName}/issues/${number}`}
+        />
       </HeaderWrapper>
       <span>JavaScript data types and data structures</span>
       <AdditionalInfoWrapper>

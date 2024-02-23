@@ -11,6 +11,8 @@ export const PostItemContainer = styled.div`
 
   width: 100%;
 
+  cursor: pointer;
+
   > p {
     color: ${({ theme }) => theme['base-text']};
     line-height: 160%;

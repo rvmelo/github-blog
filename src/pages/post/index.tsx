@@ -13,6 +13,7 @@ interface PostAxiosResponse {
   comments: number
   body: string
   created_at: Date
+  repository_url: string
 }
 
 export const Post: React.FC = () => {
@@ -39,13 +40,19 @@ export const Post: React.FC = () => {
     loadPost()
   }, [loadPost])
 
-  const { comments, created_at, user, body } = postData || {}
+  const { comments, created_at, user, body, repository_url } = postData || {}
 
   if (isLoading) return null
 
   return (
     <PostContainer>
-      <PostInfo comments={comments} createdAt={created_at} login={user.login} />
+      <PostInfo
+        comments={comments}
+        createdAt={created_at}
+        login={user.login}
+        repositoryUrl={repository_url}
+        number={params.get('number') || '0'}
+      />
       <PostContentWrapper>
         <p>
           <Markdown>{body}</Markdown>
