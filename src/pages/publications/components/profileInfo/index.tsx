@@ -13,6 +13,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { CustomLink } from '../../../../components/customLink'
 import { useTheme } from 'styled-components'
 import { GitHubUserData } from '../..'
+import { githubLogin } from '../../../../static/github'
 
 interface ProfileInfoProps {
   githubUser: GitHubUserData
@@ -25,7 +26,7 @@ export const ProfileInfo: React.FC<ProfileInfoProps> = ({ githubUser }) => {
 
   return (
     <ProfileInfoContainer>
-      <img src={avatar_url} alt="rvmelo" />
+      <img src={avatar_url} alt={githubLogin} />
       <InfoWrapper>
         <HeaderInfo>
           <span>{name}</span>

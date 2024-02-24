@@ -9,6 +9,7 @@ import { Input } from '../../components/input'
 import { PostItem } from '../../components/postItem'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { api } from '../../services/api'
+import { githubLogin, githubUserRepository } from '../../static/github'
 
 export interface GitHubUserData {
   login: string
@@ -35,16 +36,19 @@ export const Publications: React.FC = () => {
   const navigate = useNavigate()
 
   const [githubUser, setGitHubUser] = useState({} as GitHubUserData)
-  const [githubPosts, setGitHubPosts] = useState({} as GitHubPostsData)
+  const [githubPosts, setGitHubPosts] = useState([] as GitHubPostsData)
   const [isLoading, setIsLoading] = useState(true)
   const [totalCount, setTotalCount] = useState(0)
+  const [searchText, setSearchText] = useState('')
 
   const loadUser = useCallback(async () => {
     try {
       setIsLoading(true)
       const [{ data: user }, { data: posts }] = await Promise.all([
-        api.get<GitHubUserData>('/users/rvmelo'),
-        api.get<PostsAxiosResponse>('/search/issues?q=repo:rvmelo/github-blog'),
+        api.get<GitHubUserData>(`/users/${githubLogin}`),
+        api.get<PostsAxiosResponse>(
+          `/search/issues?q=repo:${githubLogin}/${githubUserRepository}`,
+        ),
       ])
       setGitHubUser(user)
       setGitHubPosts(posts?.items)
@@ -54,6 +58,28 @@ export const Publications: React.FC = () => {
       setIsLoading(false)
     }
   }, [])
+
+  const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value)
+  }
+
+  const handleSearch = useCallback(async () => {
+    try {
+      const { data } = await api.get<PostsAxiosResponse>(
+        `/search/issues?q=${searchText.trim()}%20repo:${githubLogin}/${githubUserRepository}`,
+      )
+
+      setGitHubPosts(data.items)
+    } catch (err) {
+      console.error('Search error: ', err)
+    }
+  }, [searchText])
+
+  useEffect(() => {
+    const timerId = setTimeout(handleSearch, 1000)
+
+    return () => clearTimeout(timerId)
+  }, [handleSearch])
 
   useEffect(() => {
     loadUser()
@@ -74,7 +100,7 @@ export const Publications: React.FC = () => {
             : `${totalCount} publicações`}
         </span>
       </PublicationInfoContainer>
-      <Input />
+      <Input onChange={onChange} value={searchText} />
       <PublicationItemsContainer>
         {githubPosts?.map((post) => (
           <PostItem

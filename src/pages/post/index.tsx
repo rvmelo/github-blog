@@ -5,6 +5,7 @@ import { PostInfo } from './components/PostInfo'
 import { useSearchParams } from 'react-router-dom'
 import { api } from '../../services/api'
 import Markdown from 'react-markdown'
+import { githubUserRepository, githubLogin } from '../../static/github'
 
 interface PostAxiosResponse {
   user: {
@@ -13,7 +14,6 @@ interface PostAxiosResponse {
   comments: number
   body: string
   created_at: Date
-  repository_url: string
 }
 
 export const Post: React.FC = () => {
@@ -26,7 +26,7 @@ export const Post: React.FC = () => {
   const loadPost = useCallback(async () => {
     try {
       const { data } = await api.get<PostAxiosResponse>(
-        `/repos/rvmelo/github-blog/issues/${params.get('number')}`,
+        `/repos/${githubLogin}/${githubUserRepository}/issues/${params.get('number')}`,
       )
 
       setPostData(data)
@@ -40,7 +40,7 @@ export const Post: React.FC = () => {
     loadPost()
   }, [loadPost])
 
-  const { comments, created_at, user, body, repository_url } = postData || {}
+  const { comments, created_at, user, body } = postData || {}
 
   if (isLoading) return null
 
@@ -50,7 +50,6 @@ export const Post: React.FC = () => {
         comments={comments}
         createdAt={created_at}
         login={user.login}
-        repositoryUrl={repository_url}
         number={params.get('number') || '0'}
       />
       <PostContentWrapper>

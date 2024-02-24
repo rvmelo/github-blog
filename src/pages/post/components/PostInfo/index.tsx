@@ -17,30 +17,24 @@ import {
 } from './styles'
 import { useNavigate } from 'react-router-dom'
 import { formatTimeUntilNow } from '../../../../utils/formatTime'
+import { githubUserRepository, githubLogin } from '../../../../static/github'
 
 interface PostInfoProps {
   comments: number
   createdAt: Date
   login: string
-  repositoryUrl: string
   number: string
 }
 
 export const PostInfo: React.FC<PostInfoProps> = ({
   login,
   comments,
-  repositoryUrl,
   number,
   createdAt,
 }) => {
   const theme = useTheme()
 
   const navigate = useNavigate()
-
-  const repositoryName = repositoryUrl.substring(
-    repositoryUrl.lastIndexOf('/'),
-    repositoryUrl.length,
-  )
 
   return (
     <PostInfoContainer>
@@ -51,7 +45,7 @@ export const PostInfo: React.FC<PostInfoProps> = ({
         </GoBackWrapper>
         <CustomLink
           label="ver no github"
-          link={`https://github.com/rvmelo/${repositoryName}/issues/${number}`}
+          link={`https://github.com/${githubLogin}/${githubUserRepository}/issues/${number}`}
         />
       </HeaderWrapper>
       <span>JavaScript data types and data structures</span>
